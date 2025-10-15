@@ -5,11 +5,19 @@ from header.Header import Header
 
 def handle_client(udp_socket: socket.socket, address: Any, buffer):
     transaction_id = buffer[:2]
+    flags = buffer[2:4]
     question_data = buffer[12:]
     qd_count = buffer[4:6]
     header_f = buffer[2:12]
 
-
+    flags_int = int.from_bytes(flags, 'big')
+    qr = (flags_int >> 15) & 1
+    opcode = (flags_int >> 11) & 0xF
+    aa = (flags_int >> 10) & 1
+    tc = (flags_int >> 9) & 1
+    rd = (flags_int >> 8) & 1
+    ra = (flags_int >> 7) & 1
+    rcode = flags_int & 0xF
 
     h = Header(
         id=int.from_bytes(transaction_id, 'big'),
