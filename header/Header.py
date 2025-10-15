@@ -44,12 +44,24 @@ class Header:
 
     def flags_convert_byte(self):
         id_flag = (
-        (self.qr << 15) |
-        (self.opcode << 11) |
-        (self.aa << 10) |
-        (self.tc << 9) |
-        (self.rd << 8) |
-        (self.ra << 7) |
-        (self.z << 4) |
-        (self.rcode << 0)
+            (self.qr << 15) |
+            (self.opcode << 11) |
+            (self.aa << 10) |
+            (self.tc << 9) |
+            (self.rd << 8) |
+            (self.ra << 7) |
+            (self.z << 4) |
+            (self.rcode << 0)
         )  # create the 16bit ID
+
+        # create header
+        header = (
+                self.id.to_bytes(2, "big") +
+                id_flag.to_bytes(2, 'big') +
+                self.qd_count.to_bytes(2, 'big') +
+                self.anc_count.to_bytes(2, 'big') +
+                self.ns_count.to_bytes(2, 'big') +
+                self.ar_count.to_bytes(2, 'big')
+        )
+
+        return header
