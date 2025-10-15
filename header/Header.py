@@ -32,14 +32,14 @@ class Header:
         self.qr = qr
         self.opcode = opcode
         self.aa =aa
-        self.tc = tc,
-        self.rd = rd,
-        self.ra = ra,
-        self.z = z,
-        self.rcode = rcode,
-        self.ns_count = ns_count,
-        self.qd_count = qd_count,
-        self.anc_count = anc_count,
+        self.tc = tc
+        self.rd = rd
+        self.ra = ra
+        self.z = z
+        self.rcode = rcode
+        self.ns_count = ns_count
+        self.qd_count = qd_count
+        self.anc_count = anc_count
         self.ar_count = ar_count
 
     def flags_convert_byte(self):
