@@ -41,3 +41,15 @@ class Header:
         self.qd_count = qd_count,
         self.anc_count = anc_count,
         self.ar_count = ar_count
+
+    def flags_convert_byte(self):
+        id_flag = (
+        (self.qr << 15) |
+        (self.opcode << 11) |
+        (self.aa << 10) |
+        (self.tc << 9) |
+        (self.rd << 8) |
+        (self.ra << 7) |
+        (self.z << 4) |
+        (self.rcode << 0)
+        )  # create the 16bit ID
