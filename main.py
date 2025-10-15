@@ -1,8 +1,37 @@
 import socket
+from typing import Any
+
+from header.Header import Header
+
+def handle_client(udp_socket: socket.socket, address: Any, buffer):
+    transaction_id = buffer[:2]
+    question_data = buffer[12:]
+    qd_count = buffer[4:6]
+    header_f = buffer[2:12]
 
 
-def handle_client(udp_socket: socket.socket, buffer):
-    pass
+
+    h = Header(
+        id=int.from_bytes(transaction_id, 'big'),
+        qr=1,
+        opcode=0,
+        aa=0,
+        tc=0,
+        rd=0,
+        ra=0,
+        z=0,
+        rcode=0,
+        qd_count=int.from_bytes(qd_count, 'big'),
+        ns_count=0,
+        an_count=0,
+        ar_count=0
+    )  # create header object
+
+    res = b""
+    res += h.flags_convert_byte()
+
+    udp_socket.sendto(res,address)
+
 
 def main():
     udp_socket = socket.socket(
@@ -20,8 +49,7 @@ def main():
 
             print(buffer)
 
-            res = b"hello"
-            udp_socket.sendto(res, addr)
+            handle_client(udp_socket,addr,buffer)
         except Exception as e:
             print(f"Err : {e}")
 

@@ -25,7 +25,7 @@ class Header:
         rcode=0,
         ns_count=0,
         qd_count=0,
-        anc_count=0,
+        an_count=0,
         ar_count=0
     ):
         self.id = id
@@ -39,7 +39,7 @@ class Header:
         self.rcode = rcode
         self.ns_count = ns_count
         self.qd_count = qd_count
-        self.anc_count = anc_count
+        self.an_count = an_count
         self.ar_count = ar_count
 
     def flags_convert_byte(self):
@@ -59,7 +59,7 @@ class Header:
                 self.id.to_bytes(2, "big") +
                 id_flag.to_bytes(2, 'big') +
                 self.qd_count.to_bytes(2, 'big') +
-                self.anc_count.to_bytes(2, 'big') +
+                self.an_count.to_bytes(2, 'big') +
                 self.ns_count.to_bytes(2, 'big') +
                 self.ar_count.to_bytes(2, 'big')
         )
